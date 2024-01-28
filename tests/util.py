@@ -1,7 +1,6 @@
 from __future__ import annotations
 import os
 import re
-import sys
 from contextlib import contextmanager
 from dataclasses import dataclass
 from enum import Enum
@@ -84,10 +83,11 @@ class TestImage(Enum):
 
     __test__ = False
 
+
 def assert_image_inference(
-        model_file: ModelFile,
-        model: ModelDescriptor,
-        test_images: list[TestImage],
+    model_file: ModelFile,
+    model: ModelDescriptor,
+    test_images: list[TestImage],
 ):
     test_images.sort(key=lambda image: image.value)
 
@@ -96,13 +96,13 @@ def assert_image_inference(
     for test_image in test_images:
         path = os.path.join(IMAGE_DIR, "input", test_image.value + ".png")
 
-        image = ImageTransformer.read_image(path, 'gray' if model.input_channels == 1 else 'color')
+        image = ImageTransformer.read_image(path, "gray" if model.input_channels == 1 else "color")
         tensor = ImageTransformer.img2tensor(image).to(get_test_device())
 
         image_c, image_h, image_w = tensor.shape
 
         assert (
-                image_c == model.input_channels
+            image_c == model.input_channels
         ), f"Expected the input image '{test_image.value}' to have {model.input_channels} channels, but it had {image_c} channels."
 
         try:
@@ -115,17 +115,15 @@ def assert_image_inference(
         _, output_c, output_h, output_w = output.shape
 
         assert (
-                output_c == model.output_channels
+            output_c == model.output_channels
         ), f"Expected the output of '{test_image.value}' to have {model.output_channels} channels, but it had {output_c} channels."
         assert (
-                output_w == image_w * model.scale and output_h == image_h * model.scale
+            output_w == image_w * model.scale and output_h == image_h * model.scale
         ), f"Expected the input image '{test_image.value}' {image_w}x{image_h} to be scaled {model.scale}x, but the output was {output_w}x{output_h}."
 
         output_image = ImageTransformer.tensor2img(output)
 
-        expected_path = (
-                IMAGE_DIR / "output" / test_image.value / f"{model_file.path.stem}.png"
-        )
+        expected_path = IMAGE_DIR / "output" / test_image.value / f"{model_file.path.stem}.png"
 
         if not expected_path.exists():
             ImageTransformer.write_image(output_image, expected_path.absolute().as_posix())
@@ -168,9 +166,9 @@ def _get_compare_keys(condition: Callable) -> list[str]:
 
 
 def assert_loads_correctly(
-        load: Callable[[StateDict], ModelDescriptor[T]],
-        *models: Callable[[], T],
-        condition: Callable[[T, T], bool] = lambda _a, _b: True,
+    load: Callable[[StateDict], ModelDescriptor[T]],
+    *models: Callable[[], T],
+    condition: Callable[[T, T], bool] = lambda _a, _b: True,
 ):
     for model_fn in models:
         model_name = getsource(model_fn)
@@ -185,8 +183,8 @@ def assert_loads_correctly(
         except Exception as e:
             raise AssertionError(f"Failed to load: {model_name}") from e
 
-        assert (
-                type(loaded.model) == type(model)
+        assert type(loaded.model) == type(
+            model
         ), f"Expected {model_name} to be loaded correctly, but found a {type(loaded.model)} instead."
 
         assert condition(model, loaded.model), (
