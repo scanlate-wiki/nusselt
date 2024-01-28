@@ -5,3 +5,4 @@
 
 Architectures
 * [SPAN](https://github.com/hongyuanyu/span)
+* [DITN](https://github.com/yongliuy/DITN)

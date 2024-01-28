@@ -97,9 +97,9 @@ def assert_image_inference(
         path = os.path.join(IMAGE_DIR, "input", test_image.value + ".png")
 
         image = ImageTransformer.read_image(path, "gray" if model.input_channels == 1 else "color")
-        tensor = ImageTransformer.img2tensor(image).to(get_test_device())
+        tensor = ImageTransformer.img2tensor(image).to(get_test_device()).unsqueeze(0)
 
-        image_c, image_h, image_w = tensor.shape
+        _, image_c, image_h, image_w = tensor.shape
 
         assert (
             image_c == model.input_channels
@@ -111,7 +111,7 @@ def assert_image_inference(
                 output = model(tensor)
 
         except Exception as e:
-            raise AssertionError(f"Failed on {test_image.value}") from e
+            raise AssertionError(f"Failed on {test_image.value}: {e}") from e
         _, output_c, output_h, output_w = output.shape
 
         assert (
