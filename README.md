@@ -11,7 +11,7 @@ model = ModelLoader().load_from_file("4x_sr_model.pth")
 model.to(device)
 model.eval()
 
-image = ImageTransformer.read_image("input.png", "gray" if model.input_channels == 1 else "color")
+image = ImageTransformer.read_image("input.png", "grayscale" if model.input_channels == 1 else "color")
 output = ImageTransformer.img2tensor(image).to(device)
 
 with torch.no_grad():
