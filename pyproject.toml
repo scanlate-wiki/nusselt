@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nusselt"
-version = "0.1.0"
+version = "0.1.1"
 description = "Dependency for recognizing and executing Image Super-Resolution PyTorch architectures"
 authors = ["Sekiju", "umzi"]
 readme = "README.md"

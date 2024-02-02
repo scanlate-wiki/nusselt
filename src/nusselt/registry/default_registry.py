@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn
+from ..architectures import span, ditn, omnisr
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -21,5 +21,10 @@ MAIN_REGISTRY.add(
             "upsample.0.weight",
         ],
         load=ditn.load,
+    ),
+    ArchSupport(
+        id="OmniSR",
+        keys=["residual_layer.0.residual_layer.0.layer.0.fn.0.weight"],
+        load=omnisr.load,
     ),
 )

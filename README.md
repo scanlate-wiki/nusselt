@@ -23,6 +23,7 @@ ImageTransformer.write_image(output_image, "output.png")
 ## Architectures
 * [SPAN](https://github.com/hongyuanyu/span)
 * [DITN](https://github.com/yongliuy/DITN)
+* [OmniSR](https://github.com/Francis0625/Omni-SR)
 
 ## Credits
 * Based on [chaiNNer-org/spandrel](https://github.com/chaiNNer-org/spandrel)

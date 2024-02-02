@@ -1,0 +1,9 @@
+# serializer version: 1
+# name: test_omnisr_inference
+  ModelDescriptor(
+    architecture='OmniSR',
+    input_channels=3,
+    output_channels=3,
+    scale=4,
+  )
+# ---
