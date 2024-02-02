@@ -79,9 +79,8 @@ def expect_error(snapshot):
 
 
 class TestImage(Enum):
-    COLOR_16 = "16x16"
-    COLOR_32 = "32x32"
     COLOR_64 = "64x64"
+    GRAY_128 = "128x128g"
 
     __test__ = False
 
