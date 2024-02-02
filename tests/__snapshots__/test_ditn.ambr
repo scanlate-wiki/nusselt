@@ -1,0 +1,9 @@
+# serializer version: 1
+# name: test_ditn_inference
+  ModelDescriptor(
+    architecture='DITN',
+    input_channels=3,
+    output_channels=3,
+    scale=2,
+  )
+# ---

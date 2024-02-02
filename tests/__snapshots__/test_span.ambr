@@ -1,0 +1,9 @@
+# serializer version: 1
+# name: test_span_inference
+  ModelDescriptor(
+    architecture='SPAN',
+    input_channels=3,
+    output_channels=3,
+    scale=4,
+  )
+# ---

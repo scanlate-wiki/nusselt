@@ -4,6 +4,7 @@ from tests.util import (
     TestImage,
     assert_loads_correctly,
     assert_image_inference,
+    disallowed_props,
 )
 
 
@@ -26,14 +27,16 @@ def test_span_load():
     )
 
 
-def test_span_inference():
+def test_span_inference(snapshot):
     file = ModelFile.from_url(
         "https://drive.google.com/file/d/1mqixUK-Zgf-XW0ipma64T30o4K6Mr7_0/view?usp=sharing",
         "4x_span_anime_pretrain.pth",
     )
-
     model = file.load_model()
+
+    assert model == snapshot(exclude=disallowed_props)
     assert isinstance(model.model, SPAN)
+
     assert_image_inference(
         file,
         model,

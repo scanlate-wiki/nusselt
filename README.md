@@ -7,8 +7,7 @@ import torch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model = ModelLoader().load_from_file("4x_sr_model.pth")
-model.to(device)
+model = ModelLoader(device).load_from_file("4x_sr_model.pth")
 model.eval()
 
 image = ImageTransformer.read_image("input.png", "grayscale" if model.input_channels == 1 else "color")

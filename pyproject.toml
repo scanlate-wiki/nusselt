@@ -9,24 +9,19 @@ homepage = "https://github.com/scanlate-wiki/nusselt"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
-torch = [
-    { platform = "win32", url = "https://download.pytorch.org/whl/cu121/torch-2.1.2%2Bcu121-cp310-cp310-win_amd64.whl" },
-    { platform = "linux", url = "https://download.pytorch.org/whl/cu121/torch-2.1.2%2Bcu121-cp310-cp310-linux_x86_64.whl" }
-]
-torchvision = [
-    { platform = "win32", url = "https://download.pytorch.org/whl/cu121/torchvision-0.16.2%2Bcu121-cp310-cp310-win_amd64.whl" },
-    { platform = "linux", url = "https://download.pytorch.org/whl/cu121/torchvision-0.16.2%2Bcu121-cp310-cp310-linux_x86_64.whl" }
-]
 einops = "^0.7.0"
 safetensors = "^0.4.2"
 numpy = "^1.26.3"
 opencv-python = "^4.9.0.80"
+torch = "2.1.2"
+torchvision = "0.16.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.1.0"
 pytest = "^7.4.4"
 gdown = "^5.0.1"
 pre-commit = "^3.6.0"
+syrupy = "^4.6.0"
 
 [tool.black]
 line-length = 120

@@ -1,6 +1,11 @@
 from __future__ import annotations
 import os
 import re
+import gdown
+import numpy as np
+import torch
+import sys
+
 from contextlib import contextmanager
 from dataclasses import dataclass
 from enum import Enum
@@ -8,10 +13,7 @@ from inspect import getsource
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 from urllib.parse import unquote, urlparse
-
-import gdown
-import numpy as np
-import torch
+from syrupy.filters import props
 
 from nusselt import ModelLoader, StateDict, ModelDescriptor, ImageTransformer
 
@@ -91,6 +93,8 @@ def assert_image_inference(
 ):
     test_images.sort(key=lambda image: image.value)
 
+    update_mode = "--snapshot-update" in sys.argv
+
     model.to(get_test_device())
 
     for test_image in test_images:
@@ -125,15 +129,15 @@ def assert_image_inference(
 
         expected_path = IMAGE_DIR / "output" / test_image.value / f"{model_file.path.stem}.png"
 
-        if not expected_path.exists():
+        if update_mode and not expected_path.exists():
             ImageTransformer.write_image(output_image, expected_path.absolute().as_posix())
             continue
 
         assert expected_path.exists(), f"Expected {expected_path} to exist."
-        expected = ImageTransformer.read_image(expected_path.absolute().as_posix())
+        expected = ImageTransformer.read_image(expected_path.absolute().as_posix(), float32=False)
 
         close_enough = np.allclose(output_image, expected, atol=1)
-        if not close_enough:
+        if update_mode and not close_enough:
             ImageTransformer.write_image(output_image, expected_path.absolute().as_posix())
             continue
 
@@ -191,3 +195,6 @@ def assert_loads_correctly(
             f"Failed condition for {model_name}."
             f" Keys:\n\n{_get_different_keys(model, loaded.model, _get_compare_keys(condition))}"
         )
+
+
+disallowed_props = props("model", "state_dict", "device", "dtype")
