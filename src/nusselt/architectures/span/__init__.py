@@ -6,6 +6,7 @@ from ...utilities.state import get_scale_and_output_channels
 def load(state_dict: StateDict) -> ModelDescriptor[SPAN]:
     img_range = 255.0
     rgb_mean = (0.4488, 0.4371, 0.4040)
+    norm = False if 'no_norm' in state_dict else True
 
     num_in_ch = state_dict["conv_1.sk.weight"].shape[1]
     feature_channels = state_dict["conv_1.sk.weight"].shape[0]
@@ -24,6 +25,7 @@ def load(state_dict: StateDict) -> ModelDescriptor[SPAN]:
         bias,
         img_range,
         rgb_mean,
+        norm,
     )
 
     return ModelDescriptor(
