@@ -27,14 +27,14 @@ def get_url_file_name(url: str) -> str:
 
 def download_file(url: str, filename: Path | str) -> None:
     filename = Path(filename)
-    filename.parent.mkdir(exist_ok=True)
+    filename.parent.mkdir(parents=True, exist_ok=True)
 
     print("Downloading %s to %s", url, filename)
 
     if "drive.google.com" in url:
         gdown.download(url=url, output=filename.absolute().as_posix(), quiet=False, fuzzy=True)
     else:
-        torch.hub.download_url_to_file(url, str(filename))
+        torch.hub.download_url_to_file(url, filename.absolute().as_posix())
 
 
 def get_test_device() -> torch.device:
@@ -99,7 +99,7 @@ def assert_image_inference(
     for test_image in test_images:
         path = os.path.join(IMAGE_DIR, "input", test_image.value + ".png")
 
-        image = ImageTransformer.read_image(path, "gray" if model.input_channels == 1 else "color")
+        image = ImageTransformer.read_image(path, "grayscale" if model.input_channels == 1 else "color")
         tensor = ImageTransformer.img2tensor(image).to(get_test_device()).unsqueeze(0)
 
         _, image_c, image_h, image_w = tensor.shape
@@ -125,7 +125,6 @@ def assert_image_inference(
         ), f"Expected the input image '{test_image.value}' {image_w}x{image_h} to be scaled {model.scale}x, but the output was {output_w}x{output_h}."
 
         output_image = ImageTransformer.tensor2img(output)
-
         expected_path = IMAGE_DIR / "output" / test_image.value / f"{model_file.path.stem}.png"
 
         if update_mode and not expected_path.exists():
@@ -135,7 +134,11 @@ def assert_image_inference(
         assert expected_path.exists(), f"Expected {expected_path} to exist."
         expected = ImageTransformer.read_image(expected_path.absolute().as_posix(), float32=False)
 
-        close_enough = np.allclose(output_image, expected, atol=1)
+        if model.input_channels == 1:
+            close_enough = np.allclose(output_image, expected[:, :, 0], atol=1)
+        else:
+            close_enough = np.allclose(output_image, expected, atol=1)
+
         if update_mode and not close_enough:
             ImageTransformer.write_image(output_image, expected_path.absolute().as_posix())
             continue

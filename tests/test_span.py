@@ -21,6 +21,7 @@ def test_span_load():
         lambda: SPAN(num_in_ch=3, num_out_ch=3, upscale=2),
         lambda: SPAN(num_in_ch=3, num_out_ch=3, upscale=4),
         lambda: SPAN(num_in_ch=3, num_out_ch=3, upscale=8),
+        lambda: SPAN(num_in_ch=3, num_out_ch=3, norm=False),
         condition=lambda a, b: (
             a.in_channels == b.in_channels and a.out_channels == b.out_channels and a.img_range == b.img_range
         ),
@@ -29,8 +30,8 @@ def test_span_load():
 
 def test_span_inference(snapshot):
     file = ModelFile.from_url(
-        "https://drive.google.com/file/d/1mqixUK-Zgf-XW0ipma64T30o4K6Mr7_0/view?usp=sharing",
-        "4x_span_anime_pretrain.pth",
+        "https://cdn.discordapp.com/attachments/1170374027144089762/1203098684108185691/net_g_39000.pth",
+
     )
     model = file.load_model()
 
@@ -40,5 +41,5 @@ def test_span_inference(snapshot):
     assert_image_inference(
         file,
         model,
-        [TestImage.COLOR_64],
+        [TestImage.GRAY_128],
     )

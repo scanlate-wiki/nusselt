@@ -87,7 +87,7 @@ class ImageTransformer:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             if len(img.shape) == 2:
-                img = torch.from_numpy(img[None, None, ...])
+                img = torch.from_numpy(img[None, ...])
             else:
                 img = torch.from_numpy(img.transpose(2, 0, 1))
 
