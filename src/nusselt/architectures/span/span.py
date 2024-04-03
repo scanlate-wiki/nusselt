@@ -213,16 +213,18 @@ class SPAN(nn.Module):
                  upscale=4,
                  bias=True,
                  img_range=255.,
-                 rgb_mean=(0.4488, 0.4371, 0.4040)
+                 rgb_mean=(0.4488, 0.4371, 0.4040),
+                 norm=True,
                  ):
         super(SPAN, self).__init__()
-
         self.in_channels = num_in_ch
         self.out_channels = num_out_ch
         self.img_range = img_range
-
-        self.mean = torch.Tensor(rgb_mean).view(1, 3, 1, 1)
-
+        self.norm = norm
+        if self.norm:
+            self.mean = torch.Tensor(rgb_mean).view(1, 3, 1, 1)
+        else:
+            self.register_buffer("no_norm", torch.zeros(1))
         self.conv_1 = Conv3XC(self.in_channels, feature_channels, gain1=2, s=1)
         self.block_1 = SPAB(feature_channels, bias=bias)
         self.block_2 = SPAB(feature_channels, bias=bias)
@@ -237,7 +239,7 @@ class SPAN(nn.Module):
         self.upsampler = pixelshuffle_block(feature_channels, self.out_channels, upscale_factor=upscale)
 
     def forward(self, x):
-        if self.in_channels == 3:
+        if self.norm:
             self.mean = self.mean.type_as(x)
             x = (x - self.mean) * self.img_range
 

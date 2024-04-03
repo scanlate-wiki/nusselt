@@ -2,8 +2,8 @@
 # name: test_span_inference
   ModelDescriptor(
     architecture='SPAN',
-    input_channels=3,
-    output_channels=3,
-    scale=4,
+    input_channels=1,
+    output_channels=1,
+    scale=1,
   )
 # ---
