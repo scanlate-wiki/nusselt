@@ -1,0 +1,9 @@
+# serializer version: 1
+# name: test_esrgan_inference
+  ModelDescriptor(
+    architecture='ESRGAN',
+    input_channels=3,
+    output_channels=3,
+    scale=4,
+  )
+# ---
