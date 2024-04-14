@@ -166,7 +166,6 @@ def load(state_dict: StateDict) -> ModelDescriptor[RRDBNet]:
     if shuffle_factor:
         in_nc //= shuffle_factor ** 2
         scale //= shuffle_factor
-    print("ESRGAN",scale,in_nc,out_nc)
     return ModelDescriptor(
         model,
         state_dict,

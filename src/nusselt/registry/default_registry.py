@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan
+from ..architectures import span, ditn, omnisr, esrgan, compact
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -53,5 +53,10 @@ MAIN_REGISTRY.add(
         id="ESRGAN+",
         keys=["model.0.weight", "model.1.sub.0.RDB1.conv1x1.weight"],
         load=esrgan.load,
+    ),
+    ArchSupport(
+        id="Compact",
+        keys=["body.0.weight","body.1.weight",],
+        load=compact.load,
     ),
 )
