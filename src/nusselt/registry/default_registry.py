@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -58,5 +58,20 @@ MAIN_REGISTRY.add(
         id="Compact",
         keys=["body.0.weight","body.1.weight",],
         load=compact.load,
+    ),
+    ArchSupport(
+        id="Cugan1",
+        keys=[  'conv_final.weight' ],
+        load=cugan.load,
+    ),
+    ArchSupport(
+        id="Cugan2",
+        keys=['unet1.conv1.conv.0.weight'],
+        load=cugan.load,
+    ),
+    ArchSupport(
+        id="Cugan3",
+        keys=["unet1.conv_bottom.weight"],
+        load=cugan.load,
     ),
 )
