@@ -10,7 +10,15 @@ from tests.util import (
 
 def test_cugan_load():
     assert_loads_correctly(
+        load,
         lambda: cugan(),
+        lambda: cugan(in_channels=1, out_channels=3),
+        lambda: cugan(in_channels=3, out_channels=1),
+        lambda: cugan(in_channels=3, out_channels=3),
+        lambda: cugan(in_channels=4, out_channels=4),
+        lambda: cugan(scale=2),
+        lambda: cugan(scale=3),
+        lambda: cugan(scale=4),
         condition=lambda a, b: (
                 a.scale == b.scale
         ),

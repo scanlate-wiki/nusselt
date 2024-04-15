@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan,dat
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -56,12 +56,12 @@ MAIN_REGISTRY.add(
     ),
     ArchSupport(
         id="Compact",
-        keys=["body.0.weight","body.1.weight",],
+        keys=["body.0.weight", "body.1.weight", ],
         load=compact.load,
     ),
     ArchSupport(
         id="Cugan1",
-        keys=[  'conv_final.weight' ],
+        keys=['conv_final.weight'],
         load=cugan.load,
     ),
     ArchSupport(
@@ -69,9 +69,39 @@ MAIN_REGISTRY.add(
         keys=['unet1.conv1.conv.0.weight'],
         load=cugan.load,
     ),
+
     ArchSupport(
         id="Cugan3",
         keys=["unet1.conv_bottom.weight"],
         load=cugan.load,
+    ),
+    ArchSupport(
+        id="DAT",
+        keys=["conv_first.weight",
+              "before_RG.1.weight",
+              "before_RG.1.bias",
+              "layers.0.blocks.0.norm1.weight",
+              "layers.0.blocks.0.norm2.weight",
+              "layers.0.blocks.0.ffn.fc1.weight",
+              "layers.0.blocks.0.ffn.sg.norm.weight",
+              "layers.0.blocks.0.ffn.sg.conv.weight",
+              "layers.0.blocks.0.ffn.fc2.weight",
+              "layers.0.blocks.0.attn.qkv.weight",
+              "layers.0.blocks.0.attn.proj.weight",
+              "layers.0.blocks.0.attn.dwconv.0.weight",
+              "layers.0.blocks.0.attn.dwconv.1.running_mean",
+              "layers.0.blocks.0.attn.channel_interaction.1.weight",
+              "layers.0.blocks.0.attn.channel_interaction.2.running_mean",
+              "layers.0.blocks.0.attn.channel_interaction.4.weight",
+              "layers.0.blocks.0.attn.spatial_interaction.0.weight",
+              "layers.0.blocks.0.attn.spatial_interaction.1.running_mean",
+              "layers.0.blocks.0.attn.spatial_interaction.3.weight",
+              "layers.0.blocks.0.attn.attns.0.rpe_biases",
+              "layers.0.blocks.0.attn.attns.0.relative_position_index",
+              "layers.0.blocks.0.attn.attns.0.pos.pos_proj.weight",
+              "layers.0.blocks.0.attn.attns.0.pos.pos1.0.weight",
+              "layers.0.blocks.0.attn.attns.0.pos.pos3.0.weight",
+              "norm.weight", ],
+        load=dat.load,
     ),
 )
