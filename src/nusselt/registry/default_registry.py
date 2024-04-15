@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt, swinir
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -153,5 +153,13 @@ MAIN_REGISTRY.add(
               "layers.0.blocks.0.norm2.weight",
               "norm.weight", ],
         load=rgt.load,
+    ),
+    ArchSupport(
+        id="SwinIR",
+        keys=["layers.0.residual_group.blocks.0.norm1.weight",
+              "conv_first.weight",
+              "layers.0.residual_group.blocks.0.mlp.fc1.bias",
+              "layers.0.residual_group.blocks.0.attn.relative_position_index", ],
+        load=swinir.load,
     ),
 )

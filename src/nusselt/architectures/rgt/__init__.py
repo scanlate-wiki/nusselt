@@ -123,7 +123,7 @@ def load(state_dict: StateDict) -> ModelDescriptor[RGT]:
     return ModelDescriptor(
         model,
         state_dict,
-        architecture="Compact",
+        architecture="RGT",
         scale=upscale,
         input_channels=in_chans,
         output_channels=in_chans

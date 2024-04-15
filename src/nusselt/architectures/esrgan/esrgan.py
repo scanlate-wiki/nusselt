@@ -5,8 +5,7 @@ import math
 import torch
 import torch.nn as nn
 
-
-from ..utils import block as B
+from . import block as B
 import torch.nn.functional as F
 
 class RRDBNet(nn.Module):

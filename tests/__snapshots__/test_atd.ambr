@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_esrgan_inference
+# name: test_atd_inference
   ModelDescriptor(
     architecture='Compact',
     input_channels=3,
