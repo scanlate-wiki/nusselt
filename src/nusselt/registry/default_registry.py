@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan,dat
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -103,5 +103,38 @@ MAIN_REGISTRY.add(
               "layers.0.blocks.0.attn.attns.0.pos.pos3.0.weight",
               "norm.weight", ],
         load=dat.load,
+    ),
+    ArchSupport(
+        id="ATD",
+        keys=["relative_position_index_SA",
+              "conv_first.weight",
+              "conv_first.bias",
+              "layers.0.residual_group.td",
+              "layers.0.residual_group.layers.0.sigma",
+              "layers.0.residual_group.layers.0.norm1.weight",
+              "layers.0.residual_group.layers.0.norm1.bias",
+              "layers.0.residual_group.layers.0.norm2.weight",
+              "layers.0.residual_group.layers.0.norm2.bias",
+              "layers.0.residual_group.layers.0.norm3.weight",
+              "layers.0.residual_group.layers.0.norm3.bias",
+              "layers.0.residual_group.layers.0.wqkv.weight",
+              "layers.0.residual_group.layers.0.attn_win.relative_position_bias_table",
+              "layers.0.residual_group.layers.0.attn_win.proj.weight",
+              "layers.0.residual_group.layers.0.attn_win.proj.bias",
+              "layers.0.residual_group.layers.0.attn_atd.scale",
+              "layers.0.residual_group.layers.0.attn_atd.wq.weight",
+              "layers.0.residual_group.layers.0.attn_atd.wk.weight",
+              "layers.0.residual_group.layers.0.attn_atd.wv.weight",
+              "layers.0.residual_group.layers.0.attn_aca.logit_scale",
+              "layers.0.residual_group.layers.0.attn_aca.proj.weight",
+              "layers.0.residual_group.layers.0.convffn.fc1.weight",
+              "layers.0.residual_group.layers.0.convffn.fc1.bias",
+              "layers.0.residual_group.layers.0.convffn.dwconv.depthwise_conv.0.weight",
+              "layers.0.residual_group.layers.0.convffn.dwconv.depthwise_conv.0.bias",
+              "layers.0.residual_group.layers.0.convffn.fc2.weight",
+              "layers.0.residual_group.layers.0.convffn.fc2.bias",
+              "norm.weight",
+              "norm.bias", ],
+        load=atd.load,
     ),
 )
