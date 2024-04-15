@@ -1,5 +1,3 @@
-import math
-
 from .SRVGG import SRVGGNetCompact as Compact
 from ...registry.model_descriptor import StateDict, ModelDescriptor
 from ...utilities.state import get_seq_len, get_scale_and_output_channels

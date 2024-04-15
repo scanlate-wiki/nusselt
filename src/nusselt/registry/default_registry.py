@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt, swinir
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt, swinir, camixersr
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -161,5 +161,10 @@ MAIN_REGISTRY.add(
               "layers.0.residual_group.blocks.0.mlp.fc1.bias",
               "layers.0.residual_group.blocks.0.attn.relative_position_index", ],
         load=swinir.load,
+    ),
+    ArchSupport(
+        id="camixersr",
+        keys=["head.weight"],
+        load=camixersr.load,
     ),
 )
