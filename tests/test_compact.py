@@ -25,7 +25,7 @@ def test_compact_load():
     )
 
 
-def test_esrgan_inference(snapshot):
+def test_compact_inference(snapshot):
     file = ModelFile(name="2x_Ani4Kv2_G6i2_Compact_107500.pth")
 
     model = file.load_model()

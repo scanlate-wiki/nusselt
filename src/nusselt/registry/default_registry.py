@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -136,5 +136,22 @@ MAIN_REGISTRY.add(
               "norm.weight",
               "norm.bias", ],
         load=atd.load,
+    ),
+    ArchSupport(
+        id="RGT",
+        keys=["conv_first.weight",
+              "before_RG.1.weight",
+              "layers.0.blocks.0.gamma",
+              "layers.0.blocks.0.norm1.weight",
+              "layers.0.blocks.0.attn.qkv.weight",
+              "layers.0.blocks.0.attn.proj.weight",
+              "layers.0.blocks.0.attn.attns.0.rpe_biases",
+              "layers.0.blocks.0.attn.attns.0.relative_position_index",
+              "layers.0.blocks.0.attn.attns.0.pos.pos_proj.weight",
+              "layers.0.blocks.0.mlp.fc1.weight",
+              "layers.0.blocks.0.mlp.fc2.weight",
+              "layers.0.blocks.0.norm2.weight",
+              "norm.weight", ],
+        load=rgt.load,
     ),
 )
