@@ -27,9 +27,7 @@ def test_omnisr_load():
 
 
 def test_omnisr_inference(snapshot):
-    file = ModelFile.from_url(
-        "https://cdn.discordapp.com/attachments/1121560983782035536/1202968396921044992/net_g_20000.pth"
-    )
+    file = ModelFile(name="net_g_20000.pth")
     model = file.load_model()
 
     assert model == snapshot(exclude=disallowed_props)
