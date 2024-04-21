@@ -1,5 +1,5 @@
 from .architecture_registry import ArchRegistry, ArchSupport
-from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt, swinir, camixersr
+from ..architectures import span, ditn, omnisr, esrgan, compact, cugan, dat, atd, rgt, swinir, camixersr, plksr
 
 MAIN_REGISTRY = ArchRegistry()
 
@@ -166,5 +166,10 @@ MAIN_REGISTRY.add(
         id="camixersr",
         keys=["head.weight"],
         load=camixersr.load,
+    ),
+    ArchSupport(
+        id="PLKSR",
+        keys=["feats.0.weight","feats.1.channe_mixer.0.weight","feats.1.channe_mixer.2.weight"],
+        load=plksr.load,
     ),
 )
