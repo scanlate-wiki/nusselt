@@ -1,0 +1,9 @@
+# serializer version: 1
+# name: test_atd_inference
+  ModelDescriptor(
+    architecture='Compact',
+    input_channels=3,
+    output_channels=3,
+    scale=4,
+  )
+# ---

@@ -29,10 +29,7 @@ def test_span_load():
 
 
 def test_span_inference(snapshot):
-    file = ModelFile.from_url(
-        "https://cdn.discordapp.com/attachments/1170374027144089762/1203098684108185691/net_g_39000.pth",
-
-    )
+    file = ModelFile(name="net_g_39000.pth")
     model = file.load_model()
 
     assert model == snapshot(exclude=disallowed_props)

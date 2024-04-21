@@ -29,9 +29,7 @@ def test_ditn_load():
 
 
 def test_ditn_inference(snapshot):
-    file = ModelFile.from_url(
-        "https://cdn.discordapp.com/attachments/1172224141789765744/1172578855022760026/2x_AniScale2_DITN_i16_75K.pth"
-    )
+    file = ModelFile(name="2x_AniScale2_DITN_i16_75K.pth")
     model = file.load_model()
 
     assert model == snapshot(exclude=disallowed_props)
